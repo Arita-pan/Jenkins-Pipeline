@@ -1,17 +1,58 @@
 pipeline{
     agent any
+
         stages{
             stage("Build"){
-                steps{
-                    echo "Building ..."
+                steps {
+                    sh 'echo "Building the code"'
+                    # use a build automation tool like Maven
                 }
-                post{
-                    success{
-                        mail to:"",
-                        subject: "",
-                        body: ""
-                    }
+            }
+            stage("Unit and Integration Test") {
+                steps {
+                    shh 'echo "Running unit tests"'
+                    # use test automation tools for unit and integration tests
+                }
+            }
+            stage("Code Analysis") {
+                steps {
+                    shh 'echo "Running code analysis"'
+                    # integrate a code anlysis tool
+                }
+            }
+            stage("Security Scan") {
+                steps {
+                    shh 'echo "Running security scan"'
+                    # use security scanning tool
+                }
+            }
+            stage("Integration Tests on Staging") {
+                steps {
+                    shh 'echo "Running Integration tests on staging"'
+                    # use integration test on staging
+                }
+            }
+            stage("Deploy to Productin") {
+                steps {
+                    shh 'echo "Deploying to production server"'
+                    # deploying to production server
                 }
             }
         }
+
+        post{
+            failture{
+                mail to:"pansuang.12@gmail.com",
+                subject: "Pipeline Failed",
+                body: "Pipeline failed. See attached logs for details",
+                attachLog: true
+            }
+            
+            success{
+                mail to:"pansuang.12@gmail.com",
+                subject: "Pipeline Succeeded",
+                body: "Pipeline succeeded. See attached logs for details",
+                attachLog: true
+                    }
+                }
 }
