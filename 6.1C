@@ -1,58 +1,69 @@
-pipeline{
+pipeline {
     agent any
 
-        stages{
-            stage("Build"){
-                steps {
-                    sh 'echo "Building the code"'
-                    # use a build automation tool like Maven
-                }
-            }
-            stage("Unit and Integration Test") {
-                steps {
-                    shh 'echo "Running unit tests"'
-                    # use test automation tools for unit and integration tests
-                }
-            }
-            stage("Code Analysis") {
-                steps {
-                    shh 'echo "Running code analysis"'
-                    # integrate a code anlysis tool
-                }
-            }
-            stage("Security Scan") {
-                steps {
-                    shh 'echo "Running security scan"'
-                    # use security scanning tool
-                }
-            }
-            stage("Integration Tests on Staging") {
-                steps {
-                    shh 'echo "Running Integration tests on staging"'
-                    # use integration test on staging
-                }
-            }
-            stage("Deploy to Productin") {
-                steps {
-                    shh 'echo "Deploying to production server"'
-                    # deploying to production server
-                }
+    stages {
+        stage("Build") {
+            steps {
+                sh 'echo "Building the code"'
+                // use a build automation tool like Maven
             }
         }
-
-        post{
-            failture{
-                mail to:"pansuang.12@gmail.com",
-                subject: "Pipeline Failed",
-                body: "Pipeline failed. See attached logs for details",
-                attachLog: true
+        stage("Unit and Integration Test") {
+            steps {
+                sh 'echo "Running unit tests"'
+                // use test automation tools for unit and integration tests
             }
-            
-            success{
-                mail to:"pansuang.12@gmail.com",
-                subject: "Pipeline Succeeded",
-                body: "Pipeline succeeded. See attached logs for details",
+        }
+        stage("Code Analysis") {
+            steps {
+                sh 'echo "Running code analysis"'
+                // integrate a code analysis tool
+            }
+        }
+        stage("Security Scan") {
+            steps {
+                sh 'echo "Running security scan"'
+                // use a security scanning tool
+            }
+        }
+        stage("Deploy to Staging") {
+            steps {
+                sh 'echo "Deploying to staging server"'
+                // deploy to staging server
+            }
+        }
+        stage("Integration Tests on Staging") {
+            steps {
+                sh 'echo "Running integration tests on staging"'
+                // use integration tests on staging
+            }
+        }
+        stage("Deploy to Production") {
+            steps {
+                sh 'echo "Deploying to production server"'
+                // deploying to production server
+            }
+        }
+    }
+
+    post {
+
+        failure {
+            emailext(
+                to: "pansuang.12@gmail.com",
+                subject: "Pipeline Failed",
+                body: "Pipeline failed. See the attached logs for details.",
                 attachLog: true
-                    }
-                }
+            )
+        }
+
+        success {
+            emailext(
+                to: "pansuang.12@gmail.com",
+                subject: "Pipeline Succeeded",
+                body: "Pipeline succeeded. See the attached logs for details.",
+                attachLog: true
+            )
+        }
+    }
 }
