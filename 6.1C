@@ -53,7 +53,8 @@ pipeline {
                 to: "pansuang.12@gmail.com",
                 subject: "Pipeline Failed",
                 body: "Pipeline failed. See the attached logs for details.",
-                attachLog: true
+                attachLog: true,
+                timeout: 10
             )
         }
 
@@ -62,7 +63,8 @@ pipeline {
                 to: "pansuang.12@gmail.com",
                 subject: "Pipeline Succeeded",
                 body: "Pipeline succeeded. See the attached logs for details.",
-                attachLog: true
+                attachLog: true,
+                timeout: 10
             )
         }
     }
