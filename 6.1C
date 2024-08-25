@@ -47,9 +47,6 @@ pipeline {
     }
 
     post {
-        always {
-            archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
-        }
 
         failure {
             emailext(
