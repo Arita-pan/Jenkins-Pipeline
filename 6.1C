@@ -50,7 +50,7 @@ pipeline {
 
         failure {
             emailext(
-                to: "pansuang.12@gmail.com",
+                to: "chansada.kitayaso@gmail.com",
                 subject: "Pipeline Failed",
                 body: "Pipeline failed. See the attached logs for details.",
                 attachLog: true
@@ -59,7 +59,7 @@ pipeline {
 
         success {
             emailext(
-                to: "pansuang.12@gmail.com",
+                to: "chansada.kitayaso@gmail.com",
                 subject: "Pipeline Succeeded",
                 body: "Pipeline succeeded. See the attached logs for details.",
                 attachLog: true
