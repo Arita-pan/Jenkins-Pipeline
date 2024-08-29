@@ -6,6 +6,7 @@ pipeline {
             steps {
                 echo "Building the code"
                 // use a build automation tool like Maven
+                //Eg. Maven
             }
         }
         stage("Unit and Integration Test") {
